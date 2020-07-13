@@ -311,7 +311,7 @@ $.ajax({
     },
     success: (data) => {
         parsedData = JSON.parse(JSON.stringify(data));
-        // console.log('success: ', parsedData);
+        console.log('success: ', parsedData);
     },
     error: (x, y, z) => {
         console.log('y, z error: ', y, z);
