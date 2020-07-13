@@ -1,0 +1,35 @@
+#manager-table {
+    background: rgb(34,193,195);
+    background: linear-gradient(129deg, rgba(34,193,195,0.7967289719626168) 0%, rgba(124,116,190,0.35747663551401865) 53%, rgba(253,187,45,0.8037383177570093) 100%);
+}
+
+#office-table {
+    background: rgb(34,195,48);
+    background: linear-gradient(129deg, rgba(34,195,48,0.7126168224299065) 4%, rgba(190,116,183,0.43224299065420557) 44%, rgba(250,241,102,0.8037383177570093) 100%);
+}
+
+#reps-table {
+    background: rgb(94,226,107);
+    background: linear-gradient(166deg, rgba(94,226,107,0.5023364485981308) 0%, rgba(50,175,162,0.5700934579439252) 38%, rgba(194,95,192,0.8037383177570093) 100%);
+}
+
+.first-place {
+    /* line-height: 4rem; */
+    font-size: 1.4rem;
+    text-shadow: 3px 2px 3px rgba(121, 121, 121, 0.603);
+    box-shadow: inset 0px 0px 20px 0px rgba(240, 245, 170, 0.61);
+}
+
+.second-place {
+    /* line-height: 3rem; */
+    font-size: 1.3rem;
+    text-shadow: 3px 2px 3px rgba(121, 121, 121, 0.603);
+    box-shadow: inset 0px 0px 20px 0px rgba(240, 245, 170, 0.61);
+}
+
+.third-place {
+    /* line-height: 2rem; */
+    font-size: 1.2rem;
+    text-shadow: 3px 2px 3px rgba(121, 121, 121, 0.603);
+    box-shadow: inset 0px 0px 20px 0px rgba(240, 245, 170, 0.61);
+}
