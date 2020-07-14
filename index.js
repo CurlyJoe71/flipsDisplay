@@ -10,11 +10,14 @@ let officeTableData = [];
 let repsTableData = [];
 let managersOffice;
 let today = new Date();
-let day = today.getDate();
+// let day = today.getDate();
+//manually assigned start date of July 13
+let startDate = new Date('2020-07-13');
+let startDay = startDate.getDate();
 // let month = today.getMonth();
 // let year = today.getFullYear();
 // let firstOfMonth = new Date(year, month, 1);
-let minFlips = Math.floor(day * 0.2);
+let minFlips = Math.floor(startDay * 0.2);
 // console.log(today, day, minFlips);
 
 $.support.cors = true;
