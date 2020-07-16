@@ -25,19 +25,19 @@ body {
     /* line-height: 4rem; */
     font-size: 1.4rem;
     text-shadow: 3px 2px 3px rgba(121, 121, 121, 0.603);
-    box-shadow: inset 0px 0px 20px 0px rgba(240, 245, 170, 0.61);
+    box-shadow: inset 0px 0px 40px 0px rgba(240, 255, 31, 0.87);
 }
 
 .second-place {
     /* line-height: 3rem; */
     font-size: 1.3rem;
     text-shadow: 3px 2px 3px rgba(121, 121, 121, 0.603);
-    box-shadow: inset 0px 0px 20px 0px rgba(240, 245, 170, 0.61);
+    box-shadow: inset 0px 0px 40px 0px rgba(255, 252, 60, 0.692);
 }
 
 .third-place {
     /* line-height: 2rem; */
     font-size: 1.2rem;
     text-shadow: 3px 2px 3px rgba(121, 121, 121, 0.603);
-    box-shadow: inset 0px 0px 20px 0px rgba(240, 245, 170, 0.61);
+    box-shadow: inset 0px 0px 20px 0px rgba(255, 236, 131, 0.692);
 }
