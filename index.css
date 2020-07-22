@@ -12,11 +12,11 @@ thead {
 }
 
 .image-card {
-    background-color: rgba(255, 38, 0, 0.938);
+    background-color: rgba(168, 25, 6, 0.774);
     width: 200px;
     height: 250px;
     margin: auto;
-    border-radius: 10px;
+    border-radius: 15px;
     box-shadow: 0 0 20px 10px rgb(250, 192, 0);
 }
 
