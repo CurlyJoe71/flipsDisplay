@@ -19,8 +19,9 @@ console.log('dateDiff: ', dateDiff );
 // let month = today.getMonth();
 // let year = today.getFullYear();
 // let firstOfMonth = new Date(year, month, 1);
-let minCSRFlips = Math.floor(startDay * 1.2);
-let minOfficeFlips = Math.floor() 
+let minCSRFlips = Math.floor(dateDiff * 1.2);
+let minOfficeFlips = Math.floor(dateDiff * 1.6);
+let minManagerFlips = Math.floor(dateDiff * 3.2); 
 // console.log(today, day, minFlips);
 
 $.support.cors = true;
@@ -70,7 +71,7 @@ const sortReps = () => {
         .thenBy(function(a, b) {return b[1] - a[1]})
         )
 
-        repsObj = repsObj.filter(min => min[3] >= minFlips);
+        repsObj = repsObj.filter(min => min[3] >= minCSRFlips);
         let topScores = repsObj.map(r => r[4]).filter((s, i, arr) => arr.indexOf(s) === i);
         console.log('topScores: ', topScores);
 
@@ -157,6 +158,7 @@ const sortOffice = () => {
         .thenBy(function(a, b) {return b[1] - a[1]})
     )
 
+    officeTableData = officeTableData.filter(min => min[3] >= minOfficeFlips);
     let topScores = officeTableData.map(r => r[4]).filter((s, i, arr) => arr.indexOf(s) === i);
     console.log('topScores: ', topScores);
 
