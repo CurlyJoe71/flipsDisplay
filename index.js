@@ -12,12 +12,13 @@ let managersOffice;
 let today = new Date();
 // let day = today.getDate();
 //manually assigned start date of July 13
-let startDate = new Date('2020-07-13');
+let startDate = new Date('2020-07-20');
 let startDay = startDate.getDate();
 // let month = today.getMonth();
 // let year = today.getFullYear();
 // let firstOfMonth = new Date(year, month, 1);
-let minFlips = Math.floor(startDay * 0.2);
+let minCSRFlips = Math.floor(startDay * 1.2);
+let minOfficeFlips = Math.floor() 
 // console.log(today, day, minFlips);
 
 $.support.cors = true;
