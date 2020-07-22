@@ -14,6 +14,8 @@ let today = new Date();
 //manually assigned start date of July 13
 let startDate = new Date('2020-07-20');
 let startDay = startDate.getDate();
+let dateDiff = (today - startDate)/(24*3600*1000);
+console.log('dateDiff: ', dateDiff );
 // let month = today.getMonth();
 // let year = today.getFullYear();
 // let firstOfMonth = new Date(year, month, 1);
