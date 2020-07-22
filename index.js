@@ -45,14 +45,14 @@ const sortReps = () => {
             repsObj[j] = {
                 CSR:JSON.parse(parsedData)[i]["CSR"], 
                 Office:JSON.parse(parsedData)[i]["Office"],
-                Name:JSON.parse(parsedData)[i]["EmployeeName"]
+                Name:JSON.parse(parsedData)[i]["EmployeeName"],
+                Assassin:JSON.parse(parsedData)[i]["IsCampaign"]
             };
             j++;
         }
     }
 
-    // console.log('repsObj: ', repsObj);
-
+    
     repsObj.map((r, i) => {
         repsObj[i] = [];
         repsObj[i].push(r.CSR)
@@ -62,6 +62,7 @@ const sortReps = () => {
         repsObj[i].push((repsObj[i][1] / repsObj[i][3]).toFixed(2));
         repsObj[i].push(r.Office);
         repsObj[i].push(r.Name);
+        repsObj[i].push(r.Assassin);
     })
     
     // console.log('repsObj', repsObj);
@@ -70,11 +71,12 @@ const sortReps = () => {
         firstBy(function(a, b) {return b[4] - a[4]})
         .thenBy(function(a, b) {return b[1] - a[1]})
         )
-
-        repsObj = repsObj.filter(min => min[3] >= minCSRFlips);
+        
+        repsObj = repsObj.filter(min => min[3] >= minCSRFlips && min[7] === false);
         let topScores = repsObj.map(r => r[4]).filter((s, i, arr) => arr.indexOf(s) === i);
         console.log('topScores: ', topScores);
-
+        
+        console.log('repsObj: ', repsObj);
     for (let i = 0; i < repsObj.length; i++) {
         // console.log('starting table update', managerTableData[i][0]);
         if (repsObj[i][4] === topScores[0]) {
@@ -124,6 +126,104 @@ const sortReps = () => {
     }
 }
 
+const sortAssassins = () => {
+    let success = JSON.parse(parsedData).filter(flip => flip.Flipped === true)
+        .sort((a, b) => a.Office.localeCompare(b.Office));
+    // console.log('success flips: ', success);
+    let fail = JSON.parse(parsedData).filter(flip => flip.Flipped === false)
+        .sort((a, b) => a.Office.localeCompare(b.Office));
+    // console.log('failed opps', fail);
+
+    assassinsObj = [];
+    let j = 0;
+    for (var i = 0; i < JSON.parse(parsedData).length; i++) {
+        // console.log('object.values', Object.values(managersObj));
+        if($.inArray(JSON.parse(parsedData)[i]["CSR"], assassinsObj.map(m=>m.CSR))<0 //&& JSON.parse(parsedData)[i]["Manager"] !== "Unknown"
+        ){
+            assassinsObj[j] = {
+                CSR:JSON.parse(parsedData)[i]["CSR"], 
+                Office:JSON.parse(parsedData)[i]["Office"],
+                Name:JSON.parse(parsedData)[i]["EmployeeName"],
+                Assassin:JSON.parse(parsedData)[i]["IsCampaign"]
+            };
+            j++;
+        }
+    }
+
+    
+    assassinsObj.map((r, i) => {
+        assassinsObj[i] = [];
+        assassinsObj[i].push(r.CSR)
+        assassinsObj[i].push(getRepsCount(r.CSR, success));
+        assassinsObj[i].push(getRepsCount(r.CSR, fail));
+        assassinsObj[i].push(assassinsObj[i][1] + assassinsObj[i][2]);
+        assassinsObj[i].push((assassinsObj[i][1] / assassinsObj[i][3]).toFixed(2));
+        assassinsObj[i].push(r.Office);
+        assassinsObj[i].push(r.Name);
+        assassinsObj[i].push(r.Assassin);
+    })
+    
+    // console.log('repsObj', repsObj);
+    
+    assassinsObj.sort(
+        firstBy(function(a, b) {return b[4] - a[4]})
+        .thenBy(function(a, b) {return b[1] - a[1]})
+        )
+        
+        assassinsObj = assassinsObj.filter(min => min[3] >= minCSRFlips && min[7] === true);
+        let topScores = assassinsObj.map(r => r[4]).filter((s, i, arr) => arr.indexOf(s) === i);
+        console.log('asstopScores: ', topScores);
+        
+        console.log('assassinObj: ', assassinsObj);
+    for (let i = 0; i < assassinsObj.length; i++) {
+        // console.log('starting table update', managerTableData[i][0]);
+        if (assassinsObj[i][4] === topScores[0]) {
+            $("#assassinTableBody").append(
+                `<tr class="first-place">
+                    <th scope='row' class='text-center'>${assassinsObj[i][0]}</th>
+                    <td class='text-center'>${assassinsObj[i][6]}</td>
+                    <td class='text-center'>${assassinsObj[i][1]}</td>
+                    <td class='text-center'>${assassinsObj[i][3]}</td>
+                    <td class='text-center'>${(assassinsObj[i][4] * 100).toFixed(0)}</td>
+                </tr>`
+            );
+        }
+        else if (assassinsObj[i][4] === topScores[1]) {
+            $("#assassinTableBody").append(
+                `<tr class="second-place">
+                    <th scope='row' class='text-center'>${assassinsObj[i][0]}</th>
+                    <td class='text-center'>${assassinsObj[i][6]}</td>
+                    <td class='text-center'>${assassinsObj[i][1]}</td>
+                    <td class='text-center'>${assassinsObj[i][3]}</td>
+                    <td class='text-center'>${(assassinsObj[i][4] * 100).toFixed(0)}</td>
+                </tr>`
+            );
+        }
+        else if (assassinsObj[i][4] === topScores[2]) {
+            $("#assassinTableBody").append(
+                `<tr class="third-place">
+                    <th scope='row' class='text-center'>${assassinsObj[i][0]}</th>
+                    <td class='text-center'>${assassinsObj[i][6]}</td>
+                    <td class='text-center'>${assassinsObj[i][1]}</td>
+                    <td class='text-center'>${assassinsObj[i][3]}</td>
+                    <td class='text-center'>${(assassinsObj[i][4] * 100).toFixed(0)}</td>
+                </tr>`
+            );
+        }
+        else {
+            $("#assassinTableBody").append(
+                `<tr>
+                    <th scope='row' class='text-center'>${assassinsObj[i][0]}</th>
+                    <td class='text-center'>${assassinsObj[i][6]}</td>
+                    <td class='text-center'>${assassinsObj[i][1]}</td>
+                    <td class='text-center'>${assassinsObj[i][3]}</td>
+                    <td class='text-center'>${(assassinsObj[i][4] * 100).toFixed(0)}</td>
+                </tr>`
+            );
+        }
+    }
+}
+
 const sortOffice = () => {
     let success = JSON.parse(parsedData).filter(flip => flip.Flipped === true)
         .sort((a, b) => a.Office.localeCompare(b.Office));
@@ -147,51 +247,52 @@ const sortOffice = () => {
         officeTableData[i] = [];
         officeTableData[i].push(o)
         officeTableData[i].push(getOfficeCount(o, success));
-        officeTableData[i].push(getOfficeCount(o, fail));
-        officeTableData[i].push(officeTableData[i][1] + officeTableData[i][2]);
-        officeTableData[i].push((officeTableData[i][1] / officeTableData[i][3]).toFixed(2));
+        // officeTableData[i].push(getOfficeCount(o, fail));
+        // officeTableData[i].push(officeTableData[i][1] + officeTableData[i][2]);
+        // officeTableData[i].push((officeTableData[i][1] / officeTableData[i][3]).toFixed(2));
         // console.log('officeTableData', officeTableData);
-    })
+    });
 
     officeTableData.sort(
-        firstBy(function(a, b) {return b[4] - a[4]})
-        .thenBy(function(a, b) {return b[1] - a[1]})
-    )
+        firstBy(function(a, b) {return b[1] - a[1]})
+    );
 
-    officeTableData = officeTableData.filter(min => min[3] >= minOfficeFlips);
-    let topScores = officeTableData.map(r => r[4]).filter((s, i, arr) => arr.indexOf(s) === i);
+    console.log('officeTableDAte pre filter min', officeTableData);
+
+    officeTableData = officeTableData.filter(min => min[1] >= minOfficeFlips);
+    let topScores = officeTableData.map(r => r[1]).filter((s, i, arr) => arr.indexOf(s) === i);
     console.log('topScores: ', topScores);
 
     for (let i = 0; i < officeTableData.length; i++) {
         // console.log('starting table update', managerTableData[i][0]);
-        if (officeTableData[i][4] === topScores[0]) {
+        if (officeTableData[i][1] === topScores[0]) {
             $("#officeTableBody").append(
                 `<tr class="first-place">
                     <th scope='row' class='text-center'>${officeTableData[i][0]}</th>
                     <td class='text-center'>${officeTableData[i][1]}</td>
-                    <td class='text-center'>${officeTableData[i][3]}</td>
-                    <td class='text-center'>${(officeTableData[i][4] * 100).toFixed(0)}</td>
-                </tr>`
-            );
+                    </tr>`
+                    // <td class='text-center'>${officeTableData[i][3]}</td>
+                    // <td class='text-center'>${(officeTableData[i][4] * 100).toFixed(0)}</td>
+                    );
         }
-        else if (officeTableData[i][4] === topScores[1]) {
+        else if (officeTableData[i][1] === topScores[1]) {
             $("#officeTableBody").append(
                 `<tr class="second-place">
                     <th scope='row' class='text-center'>${officeTableData[i][0]}</th>
                     <td class='text-center'>${officeTableData[i][1]}</td>
-                    <td class='text-center'>${officeTableData[i][3]}</td>
-                    <td class='text-center'>${(officeTableData[i][4] * 100).toFixed(0)}</td>
-                </tr>`
-            );
+                    </tr>`
+                    // <td class='text-center'>${officeTableData[i][3]}</td>
+                    // <td class='text-center'>${(officeTableData[i][4] * 100).toFixed(0)}</td>
+                    );
         }
-        else if (officeTableData[i][4] === topScores[2]) {
+        else if (officeTableData[i][1] === topScores[2]) {
             $("#officeTableBody").append(
                 `<tr class="third-place">
                     <th scope='row' class='text-center'>${officeTableData[i][0]}</th>
                     <td class='text-center'>${officeTableData[i][1]}</td>
-                    <td class='text-center'>${officeTableData[i][3]}</td>
-                    <td class='text-center'>${(officeTableData[i][4] * 100).toFixed(0)}</td>
-                </tr>`
+                    </tr>`
+                    // <td class='text-center'>${officeTableData[i][3]}</td>
+                    // <td class='text-center'>${(officeTableData[i][4] * 100).toFixed(0)}</td>
             );
         }
         else {
@@ -199,9 +300,9 @@ const sortOffice = () => {
                 `<tr>
                     <th scope='row' class='text-center'>${officeTableData[i][0]}</th>
                     <td class='text-center'>${officeTableData[i][1]}</td>
-                    <td class='text-center'>${officeTableData[i][3]}</td>
-                    <td class='text-center'>${(officeTableData[i][4] * 100).toFixed(0)}</td>
-                </tr>`
+                    </tr>`
+                    // <td class='text-center'>${officeTableData[i][3]}</td>
+                    // <td class='text-center'>${(officeTableData[i][4] * 100).toFixed(0)}</td>
             );
         }
     }
@@ -230,51 +331,51 @@ const sortDataManager = data => {
         managerTableData[i] = [];
         managerTableData[i].push(m.Manager)
         managerTableData[i].push(getManagerCount(m.Manager, success));
-        managerTableData[i].push(getManagerCount(m.Manager, fail));
-        managerTableData[i].push(managerTableData[i][1] + managerTableData[i][2]);
-        managerTableData[i].push((managerTableData[i][1] / managerTableData[i][3]).toFixed(2));
-        managerTableData[i].push(m.Office)
+        // managerTableData[i].push(getManagerCount(m.Manager, fail));
+        // managerTableData[i].push(managerTableData[i][1] + managerTableData[i][2]);
+        // managerTableData[i].push((managerTableData[i][1] / managerTableData[i][3]).toFixed(2));
+        // managerTableData[i].push(m.Office)
         // console.log('managerTable', managerTableData);
     })
 
     managerTableData.sort(
-        firstBy(function(a, b) {return b[4] - a[4]})
-        .thenBy(function(a, b) {return b[1] - a[1]})
+        firstBy(function(a, b) {return b[1] - a[1]})
     )
     
-    let topScores = managerTableData.map(r => r[4]).filter((s, i, arr) => arr.indexOf(s) === i);
+    managerTableData = managerTableData.filter(min => min[1] >= minManagerFlips);
+    let topScores = managerTableData.map(r => r[1]).filter((s, i, arr) => arr.indexOf(s) === i);
     console.log('topScores: ', topScores);
 
     for (let i = 0; i < managerTableData.length; i++) {
         // console.log('starting table update', managerTableData[i][0]);
-        if (managerTableData[i][4] === topScores[0]) {
+        if (managerTableData[i][1] === topScores[0]) {
             $("#managerTableBody").append(
                 `<tr class="first-place">
                     <th scope='row' class='text-center'>${managerTableData[i][0]}</th>
                     <td class='text-center'>${managerTableData[i][1]}</td>
-                    <td class='text-center'>${managerTableData[i][3]}</td>
-                    <td class='text-center'>${(managerTableData[i][4] * 100).toFixed(0)}</td>
-                </tr>`
+                    </tr>`
+                    // <td class='text-center'>${managerTableData[i][3]}</td>
+                    // <td class='text-center'>${(managerTableData[i][4] * 100).toFixed(0)}</td>
             );
         }
-        else if (managerTableData[i][4] === topScores[1]) {
+        else if (managerTableData[i][1] === topScores[1]) {
             $("#managerTableBody").append(
                 `<tr class="second-place">
                     <th scope='row' class='text-center'>${managerTableData[i][0]}</th>
                     <td class='text-center'>${managerTableData[i][1]}</td>
-                    <td class='text-center'>${managerTableData[i][3]}</td>
-                    <td class='text-center'>${(managerTableData[i][4] * 100).toFixed(0)}</td>
-                </tr>`
+                    </tr>`
+                    // <td class='text-center'>${managerTableData[i][3]}</td>
+                    // <td class='text-center'>${(managerTableData[i][4] * 100).toFixed(0)}</td>
             );
         }
-        else if (managerTableData[i][4] === topScores[2]) {
+        else if (managerTableData[i][1] === topScores[2]) {
             $("#managerTableBody").append(
                 `<tr class="third-place">
                     <th scope='row' class='text-center'>${managerTableData[i][0]}</th>
                     <td class='text-center'>${managerTableData[i][1]}</td>
-                    <td class='text-center'>${managerTableData[i][3]}</td>
-                    <td class='text-center'>${(managerTableData[i][4] * 100).toFixed(0)}</td>
-                </tr>`
+                    </tr>`
+                    // <td class='text-center'>${managerTableData[i][3]}</td>
+                    // <td class='text-center'>${(managerTableData[i][4] * 100).toFixed(0)}</td>
             );
         }
         else {
@@ -282,9 +383,9 @@ const sortDataManager = data => {
                 `<tr>
                     <th scope='row' class='text-center'>${managerTableData[i][0]}</th>
                     <td class='text-center'>${managerTableData[i][1]}</td>
-                    <td class='text-center'>${managerTableData[i][3]}</td>
-                    <td class='text-center'>${(managerTableData[i][4] * 100).toFixed(0)}</td>
-                </tr>`
+                    </tr>`
+                    // <td class='text-center'>${managerTableData[i][3]}</td>
+                    // <td class='text-center'>${(managerTableData[i][4] * 100).toFixed(0)}</td>
             );
         }
     }
@@ -339,7 +440,7 @@ $.ajax({
     },
     success: (data) => {
         parsedData = JSON.parse(JSON.stringify(data));
-        console.log('success: ', parsedData);
+        // console.log('success: ', parsedData);
     },
     error: (x, y, z) => {
         console.log('y, z error: ', y, z);
@@ -353,4 +454,5 @@ $.ajax({
     sortDataManager(parsedData);
     sortOffice(parsedData);
     sortReps(parsedData);
+    sortAssassins(parsedData);
 })
