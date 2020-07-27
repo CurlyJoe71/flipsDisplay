@@ -12,7 +12,7 @@ let managersOffice;
 let today = new Date();
 // let day = today.getDate();
 //manually assigned start date of July 13
-let startDate = new Date('2020-07-20');
+let startDate = new Date('2020-07-27');
 let startDay = startDate.getDate();
 let dateDiff = (today - startDate)/(24*3600*1000);
 console.log('dateDiff: ', dateDiff );
@@ -21,12 +21,12 @@ console.log('dateDiff: ', dateDiff );
 // let firstOfMonth = new Date(year, month, 1);
 // let minCSRFlips = Math.floor(dateDiff * 1.2);
 let minCSRFlips = Math.floor(dateDiff * 0.857);
-let minOfficeFlips = Math.floor(dateDiff * 1.6);
-let minManagerFlips = Math.floor(dateDiff * 3.2); 
+let minOfficeFlips = Math.floor(dateDiff * 1.14);
+let minManagerFlips = Math.floor(dateDiff * 2.2); 
 
-minCSRFlips = 6;
-minOfficeFlips = 8;
-minManagerFlips = 16;
+// minCSRFlips = 6;
+// minOfficeFlips = 8;
+// minManagerFlips = 16;
 // console.log(today, day, minFlips);
 
 $.support.cors = true;
