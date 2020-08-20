@@ -20,6 +20,15 @@ thead {
     box-shadow: 0 0 20px 10px rgb(250, 192, 0);
 }
 
+.image-cardlong {
+    background-color: rgba(168, 25, 6, 0.774);
+    width: 200px;
+    height: 320px;
+    margin: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 20px 10px rgb(250, 192, 0);
+}
+
 #manager-table {
     background: rgb(34,193,195);
     background: linear-gradient(129deg, rgba(34,193,195,0.9) 0%, rgba(124,116,190,0.9) 53%, rgba(253,187,45,0.9) 100%);
