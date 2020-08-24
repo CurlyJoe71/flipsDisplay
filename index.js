@@ -24,9 +24,9 @@ let minCSRFlips = Math.floor(dateDiff * 0.857);
 let minOfficeFlips = Math.floor(dateDiff * 1.14);
 let minManagerFlips = Math.floor(dateDiff * 2.2); 
 
-// minCSRFlips = 6;
-// minOfficeFlips = 8;
-// minManagerFlips = 16;
+minCSRFlips = 6;
+minOfficeFlips = 8;
+minManagerFlips = 16;
 // console.log(today, day, minFlips);
 
 $.support.cors = true;
@@ -77,11 +77,11 @@ const sortReps = () => {
         )
     console.log('repsObj prefilter', repsObj);
         
-        repsObj = repsObj.filter(min => min[3] >= minCSRFlips && min[7] === false);
-        let topScores = repsObj.map(r => r[4]).filter((s, i, arr) => arr.indexOf(s) === i);
-        console.log('topScores: ', topScores);
-        
-        console.log('repsObj: ', repsObj);
+    repsObj = repsObj.filter(min => min[3] >= minCSRFlips && min[7] === false);
+    let topScores = repsObj.map(r => r[4]).filter((s, i, arr) => arr.indexOf(s) === i);
+    // console.log('topScores: ', topScores);
+    
+    // console.log('repsObj: ', repsObj);
     for (let i = 0; i < repsObj.length; i++) {
         // console.log('starting table update', managerTableData[i][0]);
         if (repsObj[i][4] === topScores[0]) {
@@ -175,11 +175,11 @@ const sortAssassins = () => {
         .thenBy(function(a, b) {return b[1] - a[1]})
         )
         
+        console.log('assin: ', assassinsObj);
         assassinsObj = assassinsObj.filter(min => min[3] >= minCSRFlips && min[7] === true);
         let topScores = assassinsObj.map(r => r[4]).filter((s, i, arr) => arr.indexOf(s) === i);
-        console.log('asstopScores: ', topScores);
         
-        console.log('assassinObj: ', assassinsObj);
+        // console.log('assassinObj: ', assassinsObj);
     for (let i = 0; i < assassinsObj.length; i++) {
         // console.log('starting table update', managerTableData[i][0]);
         if (assassinsObj[i][4] === topScores[0]) {
@@ -264,9 +264,9 @@ const sortOffice = () => {
 
     console.log('officeTableDAte pre filter min', officeTableData);
 
+    console.log('office', officeTableData);
     officeTableData = officeTableData.filter(min => min[1] >= minOfficeFlips);
     let topScores = officeTableData.map(r => r[1]).filter((s, i, arr) => arr.indexOf(s) === i);
-    console.log('topScores: ', topScores);
 
     for (let i = 0; i < officeTableData.length; i++) {
         // console.log('starting table update', managerTableData[i][0]);
@@ -347,9 +347,9 @@ const sortDataManager = data => {
         firstBy(function(a, b) {return b[1] - a[1]})
     )
     
+    console.log('Manager data:', managerTableData);
     managerTableData = managerTableData.filter(min => min[1] >= minManagerFlips);
     let topScores = managerTableData.map(r => r[1]).filter((s, i, arr) => arr.indexOf(s) === i);
-    console.log('topScores: ', topScores);
 
     for (let i = 0; i < managerTableData.length; i++) {
         // console.log('starting table update', managerTableData[i][0]);
