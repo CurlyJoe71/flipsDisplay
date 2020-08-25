@@ -24,9 +24,9 @@ let minCSRFlips = Math.floor(dateDiff * 0.857);
 let minOfficeFlips = Math.floor(dateDiff * 1.14);
 let minManagerFlips = Math.floor(dateDiff * 2.2); 
 
-minCSRFlips = 6;
-minOfficeFlips = 8;
-minManagerFlips = 16;
+// minCSRFlips = 6;
+// minOfficeFlips = 8;
+// minManagerFlips = 16;
 // console.log(today, day, minFlips);
 
 $.support.cors = true;
