@@ -12,7 +12,7 @@ let managersOffice;
 let today = new Date();
 // let day = today.getDate();
 //manually assigned start date of July 13
-let startDate = new Date('2020-08-17');
+let startDate = new Date('2020-08-31');
 let startDay = startDate.getDate();
 let dateDiff = (today - startDate)/(24*3600*1000);
 console.log('dateDiff: ', dateDiff );
@@ -74,10 +74,10 @@ const sortReps = () => {
     repsObj.sort(
         firstBy(function(a, b) {return b[4] - a[4]})
         .thenBy(function(a, b) {return b[1] - a[1]})
-        )
-    console.log('repsObj prefilter', repsObj);
+    )
         
     repsObj = repsObj.filter(min => min[3] >= minCSRFlips && min[7] === false);
+    console.log('repsObj prefilter', repsObj);
     let topScores = repsObj.map(r => r[4]).filter((s, i, arr) => arr.indexOf(s) === i);
     // console.log('topScores: ', topScores);
     
@@ -173,11 +173,11 @@ const sortAssassins = () => {
     assassinsObj.sort(
         firstBy(function(a, b) {return b[4] - a[4]})
         .thenBy(function(a, b) {return b[1] - a[1]})
-        )
+    )
         
-        console.log('assin: ', assassinsObj);
-        assassinsObj = assassinsObj.filter(min => min[3] >= minCSRFlips && min[7] === true);
-        let topScores = assassinsObj.map(r => r[4]).filter((s, i, arr) => arr.indexOf(s) === i);
+    assassinsObj = assassinsObj.filter(min => min[3] >= minCSRFlips && min[7] === true);
+    console.log('assin: ', assassinsObj);
+    let topScores = assassinsObj.map(r => r[4]).filter((s, i, arr) => arr.indexOf(s) === i);
         
         // console.log('assassinObj: ', assassinsObj);
     for (let i = 0; i < assassinsObj.length; i++) {
